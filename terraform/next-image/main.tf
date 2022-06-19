@@ -18,7 +18,7 @@ provider "aws" {
 module "next_image_optimizer" {
   source             = "milliHQ/next-js-image-optimization/aws"
   deployment_name    = "coinhippo-next-image"
-  next_image_domains = ["metadata.ens.domains", "coinhippo.io", "www.coinhippo.io"]
+  next_image_domains = ["metadata.ens.domains", "assets.coingecko.com", "coinhippo.io", "www.coinhippo.io"]
 }
 
 output "domain" {

@@ -194,7 +194,7 @@ module.exports = async () => {
       method: 'get',
       id,
     });
-    const latest = { ...response?.data?.[0] };
+    const latest = { ...response };
     data = _.slice(data.filter(d => d.exchange && d.title && d.url && d.url !== latest[d.exchange.id]), 0, 1);
     const twitter = [], telegram = [];
     data.forEach((d, i) => {

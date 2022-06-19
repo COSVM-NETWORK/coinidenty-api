@@ -17,17 +17,17 @@ module.exports = async () => {
   if (!alerted && Number(now.hours()) % 12 === 0 && Number(now.minutes()) === 5) {
     alerted = await fear_and_greed();
   }
-  if (!alerted && Number(now.minutes()) % 30 === 0) {
-    alerted = await gas();
-  }
-  if (!alerted && Number(now.minutes()) % 15 === 0) {
-    alerted = await markets();
-  }
   if (!alerted) {
     alerted = await news();
   }
+  if (!alerted && Number(now.minutes()) % 30 === 0) {
+    alerted = await gas();
+  }
   if (!alerted && Number(now.minutes()) % 7 === 0) {
     alerted = await whale();
+  }
+  if (!alerted && Number(now.minutes()) % 15 === 0) {
+    alerted = await markets();
   }
   return alerted;
 };

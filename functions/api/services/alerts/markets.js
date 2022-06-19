@@ -122,7 +122,7 @@ module.exports = async () => {
   const twitter = [], telegram = [];
   if (Number(now.minutes()) === 0) {
     if (Number(now.hours()) % 4 === 0) {
-      const data = _market_caps.find(d => d.id === 'bitcoin');
+      const data = market_caps.find(d => d.id === 'bitcoin');
       if (data) {
         const { id, symbol, name, current_price, price_change_percentage_24h_in_currency } = { ...data };
         twitter.push(`Today's 👑🟠 #${name} price is ${currency_symbol}${number_format(current_price, `0,0${current_price >= 100 ? '' : current_price >= 1 ? '.00' : '.00000000'}`)} ${number_format(price_change_percentage_24h_in_currency / 100, '+0,0.00%')} from yesterday.\n${website}/token/${id}\n\n$${symbol} #Cryptocurrency`);
@@ -293,7 +293,7 @@ module.exports = async () => {
     }
   }
   else {
-    const data = _.slice(_market_caps, 0, 3).map(d => {
+    const data = _.slice(market_caps, 0, 3).map(d => {
       d.hour_market_cap_change = d.price_change_percentage_1h_in_currency * d.market_cap;
       d.day_market_cap_change = d.price_change_percentage_24h_in_currency * d.market_cap;
       return d;
@@ -306,6 +306,7 @@ module.exports = async () => {
       const day_exceed = Math.abs(sum_day_market_cap_change / total_market_cap) >= 10;
       if (hour_exceed || day_exceed) {
         const status = (hour_exceed ? sum_hour_market_cap_change : sum_day_market_cap_change) < 0 ? 'panic' : 'fomo';
+        let twitter_message = '', telegram_message = '';
         data.forEach((d, i) => {
           const { id, symbol, name, current_price, price_change_percentage_24h_in_currency } = { ...d };
           twitter_message += `${i === 0 ? `${status === 'panic' ? '😱🥶😰 Some Panic selling detected:' : '🤩🤑😁 Some FOMO buying detected:'}` : ''}\n`;

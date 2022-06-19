@@ -114,7 +114,7 @@ module.exports = async () => {
     };
   });
   data = data.filter(d => {
-    const { from_address_name, to_address_name, from_address_type, to_address_type } = { ..d };
+    const { from_address_name, to_address_name, from_address_type, to_address_type } = { ...d };
     return from_address_name && to_address_name &&
       (from_address_name.toLowerCase().indexOf('unknown owner ') < 0 || to_address_name.toLowerCase().indexOf('unknown owner ') < 0) &&
       !(from_address_type === 'exchange' && to_address_type === 'exchange' && from_address_name === to_address_name);
@@ -124,7 +124,7 @@ module.exports = async () => {
     return v && amount_usd >= (transaction_type !== 'transfer' ? 2.5 : is_donation || is_hacked ? 0.5 : 7.5) * (equals_ignore_case(from_address_name, to_address_name) && huge_tokens.indexOf(symbol) > -1 ? 2.5 : 1) * min_amount;
   });
   data = data.map(d => {
-    const { k, blockchain } = { ...d };
+    const { k } = { ...d };
     let { blockchain } = { ...d };
     blockchain = blockchain?.toLowerCase();
     let tx_url;
