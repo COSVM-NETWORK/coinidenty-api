@@ -107,7 +107,7 @@ exports.handler = async (event, context, callback) => {
           }
           break;
         case 'data':
-          let data = { chains: chains?.[environment] };
+          let data = { chains };
           if (data[params.collection]) {
             data = data[params.collection];
           }
