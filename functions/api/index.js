@@ -27,7 +27,7 @@ exports.handler = async (event, context, callback) => {
   // initial response
   let response;
   // initial params
-  const params = get_params(req);
+  let params = get_params(req);
 
   // handle api routes
   switch (req.url) {
