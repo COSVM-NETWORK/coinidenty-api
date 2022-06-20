@@ -44,10 +44,10 @@ module.exports = async () => {
     data = _.slice(data, 0, 1);
     const twitter = [], telegram = [];
     data.forEach(d => {
-      const { slug, kind, domain, title, source } = { ...d };
+      const { id, slug, kind, domain, title, source } = { ...d };
       let { url } = { ...d };
       url = url.replace(slug, 'click/');
-      latest[exchange.id] = url;
+      latest.id = id?.toString();
       twitter.push(`${title}\n${url}\n\nvia ${source.title}`);
       telegram.push(`${kind === 'media' ? domain?.indexOf('youtube') > -1 ? '📺' : '🎙' : '📰'} ${title}\n<pre>via</pre> <a href="${url}">${source.title}</a>`);
     });
