@@ -37,7 +37,7 @@ module.exports = async () => {
     });
     const latest = { ...response };
     data = data.filter(d => d.title && d.url && d.source && now.diff(moment(d.created_at)) <= (4 * 60 * 60 * 1000));
-    const latest_index = latest?.id && data.findIndex(d => d.id?.toString() === latest.id);
+    const latest_index = latest?.news_id && data.findIndex(d => d.id?.toString() === latest.news_id);
     if (latest_index > -1) {
       data = _.cloneDeep(_.slice(data, 0, latest_index)).reverse();
     }
@@ -47,8 +47,8 @@ module.exports = async () => {
       const { id, slug, kind, domain, title, source } = { ...d };
       let { url } = { ...d };
       url = url.replace(slug, 'click/');
-      latest.id = id?.toString();
-      twitter.push(`${title}\n${url}\n\nvia ${source.title}`);
+      latest.news_id = id?.toString();
+      twitter.push(`${title}\n[via ${source.title}]\n\n${url}`);
       telegram.push(`${kind === 'media' ? domain?.indexOf('youtube') > -1 ? '📺' : '🎙' : '📰'} ${title}\n<pre>via</pre> <a href="${url}">${source.title}</a>`);
     });
     if (data.length > 0) {
