@@ -17,13 +17,13 @@
 
 ### Install dependencies
 ```
-cd functions/api
+cd ./functions/api
 npm i
 ```
 
 ### Deploy services
 ```
-cd terraform
+cd ./terraform/api
 terraform init
 terraform apply
 ```
