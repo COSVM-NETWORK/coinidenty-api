@@ -47,7 +47,7 @@ exports.handler = async (event, context, callback) => {
       delete params.cache_timeout;
 
       // initial variables
-      let res;
+      let res, response_cache, cache_id, cache_hit;
       // api
       const { coingecko, ens, fear_and_greed, news, whale_alert } = { ...config?.api?.endpoints };
       // run each module
@@ -56,11 +56,49 @@ exports.handler = async (event, context, callback) => {
           res = { data: await crud(params) };
           break;
         case 'coingecko':
-          if (coingecko) {
-            const api = axios.create({ baseURL: coingecko });
-            res = await api.get(path, { params })
-              .catch(error => { return { data: { error } }; });
+          // set id
+          cache_id = _.concat(path.split('/'), params && [JSON.stringify({ ...params })]).filter(s => s).join('_').toLowerCase();
+          if (!cache_id) {
+            cache = false;
           }
+          // get from cache
+          if (cache) {
+            response_cache = await crud({
+              collection: 'tmp',
+              method: 'get',
+              id: cache_id,
+            });
+            response_cache = to_json(response_cache?.response);
+            if (response_cache && moment().diff(moment(response_cache.updated_at * 1000), 'minutes', true) <= (cache_timeout || 1)) {
+              res = { data: response_cache };
+              cache_hit = true;
+            }
+          }
+          // cache miss
+          if (!res) {
+            if (coingecko) {
+              const api = axios.create({ baseURL: coingecko });
+              res = await api.get(path, { params })
+                .catch(error => { return { data: { error } }; });
+            }
+          }
+          // check cache
+          if (res?.data && !res.data.error) {
+            // save
+            if (cache && !cache_hit) {
+              await crud({
+                collection: 'tmp',
+                method: 'set',
+                id: cache_id,
+                response: JSON.stringify(res.data),
+                updated_at: moment().unix(),
+              });
+            }
+          }
+          else if (response_cache) {
+            res = { data: response_cache };
+          }
+          res.data.cache_hit = cache_hit;
           break;
         case 'ens':
           if (ens) {
