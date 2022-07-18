@@ -210,7 +210,7 @@ exports.handler = async (event, context, callback) => {
       break;
     default:
       if (!req.url) {
-        await require('./services/alerts')();
+        response = await require('./services/alerts')();
       }
       break;
   };

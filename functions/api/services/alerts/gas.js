@@ -11,7 +11,7 @@ const { chains } = require('../../data');
 
 module.exports = async () => {
   const { coinhippo } = { ...config?.api?.endpoints };
-  const { gas_gwei_threshold } = { ...config?.alerts?.fear_and_greed_threshold };
+  const { gas_gwei_threshold } = { ...config?.alerts };
   const api = axios.create({ baseURL: coinhippo });
   const ethereum = chains?.mainnet?.evm?.find(c => c?.id === 'ethereum');
   const { rpcUrls } = { ...ethereum?.provider_params?.[0] };
