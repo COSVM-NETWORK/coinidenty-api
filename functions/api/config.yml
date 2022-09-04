@@ -31,7 +31,7 @@ socials:
     channel: ""
 
 alerts:
-  gas_gwei_threshold: 20
+  gas_gwei_threshold: 5
   fear_and_greed_threshold:
     high: 75
     low: 20
