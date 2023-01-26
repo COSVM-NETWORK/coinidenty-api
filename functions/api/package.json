@@ -19,13 +19,13 @@
   },
   "homepage": "https://github.com/CoinHippo-Labs/coinhippo-api#readme",
   "dependencies": {
-    "axios": "^0.27.2",
+    "axios": "^1.2.5",
     "config-yml": "^0.10.3",
-    "ethers": "^5.6.8",
+    "ethers": "^5.7.2",
     "lodash": "^4.17.21",
-    "moment": "^2.29.3",
-    "node-html-parser": "^5.3.3",
+    "moment": "^2.29.4",
+    "node-html-parser": "^6.1.4",
     "numeral": "2.0.6",
-    "twitter-api-client": "^1.5.2"
+    "twitter-api-client": "^1.6.1"
   }
 }

@@ -27,8 +27,3 @@ variable "api_gateway_integration_id" {
   description = "API gateway integration id"
   default     = "6o4o9kv"
 }
-
-variable "log_level" {
-  description = "Log level"
-  default     = "debug"
-}

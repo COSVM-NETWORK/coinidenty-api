@@ -18,6 +18,7 @@ terraform.*
 package-lock.json
 yarn.lock
 *.zip*
+config.yml
 
 # misc
 .DS_Store

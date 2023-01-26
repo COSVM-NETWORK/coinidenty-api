@@ -47,7 +47,7 @@ resource "aws_iam_policy_attachment" "attachment" {
 
 resource "aws_opensearch_domain" "domain" {
   domain_name     = "${var.package_name}"
-  engine_version  = "OpenSearch_1.2"
+  engine_version  = "OpenSearch_2.3"
   cluster_config {
     instance_type            = "t3.small.search"
     instance_count           = 1
@@ -114,7 +114,6 @@ resource "aws_lambda_function" "function" {
       INDEXER_URL                = "https://${aws_opensearch_domain.domain.endpoint}"
       INDEXER_USERNAME           = var.indexer_username
       INDEXER_PASSWORD           = var.indexer_password
-      LOG_LEVEL                  = var.log_level
     }
   }
   kms_key_arn      = ""
